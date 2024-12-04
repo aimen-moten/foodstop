@@ -1,4 +1,5 @@
 <template>
+  <!-- Restaurant Information -->
   <div class="restaurant-container">
     <div class="restaurant-information">
       <h2>{{ getRestaurant.name }}</h2>
@@ -10,6 +11,7 @@
         <li v-for="category in getRestaurant.Type" :key="category">{{ category }}</li>
       </ul>
     </div>
+    <!-- Menu -->
     <h2>Menu</h2>
     <ul class="menu-items">
       <li v-for="item in foodItems" :key="item.id">
@@ -19,11 +21,13 @@
         <button @click="addToCart(item)">Add to Cart</button>
       </li>
     </ul>
+    <!-- Reviews -->
+    <h2>Reviews</h2>
     <ul class="reviews">
-      <li v-for="review in getRestaurant.Reviews" :key="review.id">
-        <h3>{{ review.name }}</h3>
-        <p>{{ review.review }}</p>
-        <p>Rating: {{ review.rating }}</p>
+      <li v-for="review in getReviews" :key="review.id">
+        <h3>Reviewer: {{ review.name }}</h3>
+        <p>{{ review.Review }}</p>
+        <p>Rating: {{ review.Rating }}</p>
       </li>
     </ul>
   </div>
@@ -45,7 +49,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(useRestaurantStore, ['getRestaurant', 'foodItems', 'getImg']),
+    ...mapState(useRestaurantStore, ['getRestaurant', 'foodItems', 'getImg', 'getReviews']),
   },
   created() {
     const route = useRoute();

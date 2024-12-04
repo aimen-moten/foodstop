@@ -3,7 +3,7 @@
       <h3>Our Featured Restaurants</h3>
       <ul>
         <li v-for="restaurant in getFeaturedRestaurants" :key="restaurant.id">
-          <a @click="pushToRestaurantView(restaurant.id)"> <strong>{{ restaurant.name }}</strong>: {{ restaurant.Description}}</a>
+          <RouterLink :to="{name:'Restaurant', params: {id:restaurant.id}}" ><strong> {{ restaurant.name }} </strong></RouterLink> : <p>{{ restaurant.Description }}</p> <br/>
           <img :src="restaurant.Img" alt="restaurant image" width="100" height="100" />
         </li>
       </ul>
@@ -11,14 +11,13 @@
   </template>
   
   <script>
+  import {RouterLink} from 'vue-router';
   import { useRestaurantStore } from '@/stores/RestaurantStore';
   import { mapState, mapActions } from 'pinia';
   export default {
     name: "FeaturedRestaurants",
-    data() {
-      return {
-        
-      };
+    components: {
+      RouterLink,
     },
     methods: {
       ...mapActions(useRestaurantStore, ['fetchFeaturedRestaurants']),

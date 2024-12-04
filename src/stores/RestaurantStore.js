@@ -12,14 +12,27 @@ export const useRestaurantStore = defineStore("restaurant", {
         RestaurantImg: "",
     }),
     getters: {
-        getReviews: state => state.reviews,
-        getFoodItems: state => state.foodItems,
-        getRestaurants: state => state.restaurants,
-        getFeaturedRestaurants: state => state.FeaturedRestaurant,
-        getRestaurant: state => state.restaurant,
-        getImg: state => state.RestaurantImg,
+        getReviews(state){
+            return state.reviews;
+        },
+        getFoodItems(state){ 
+            return state.foodItems;
+        },
+        getRestaurants(state){
+            return state.restaurants;
+        },
+        getFeaturedRestaurants(state){
+            return state.FeaturedRestaurant;
+        },
+        getRestaurant(state){
+            return state.restaurant;
+        },
+        getImg(state){
+            return state.RestaurantImg;
+        },
     },
     actions: {
+        // Fetch a restaurant data by their ID
         async fetchRestaurantData(restaurantId) {
             try {
                 // Fetch restaurant document
@@ -35,7 +48,6 @@ export const useRestaurantStore = defineStore("restaurant", {
                     const foodItemsRef = collection(db, "Restaurant", restaurantId, "Food");
                     const foodItemsSnap = await getDocs(foodItemsRef);
                     this.foodItems = foodItemsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
                     // Fetch reviews
                     const reviewsRef = collection(db, "Restaurant", restaurantId, "Reviews");
                     const reviewsSnap = await getDocs(reviewsRef);
@@ -47,6 +59,7 @@ export const useRestaurantStore = defineStore("restaurant", {
                 console.error("Error fetching restaurant data:", error);
             }
         },
+        // Fetch all restaurants
         async fetchRestaurants() {
             this.restaurants = [];
             try {
@@ -57,6 +70,7 @@ export const useRestaurantStore = defineStore("restaurant", {
                 console.error("Error fetching restaurants:", error);
             }
         },
+        // Fetch all featured restaurants
         async fetchFeaturedRestaurants() {
             try {
                 const restaurantsRef = collection(db, "FeaturedRestaurants");
@@ -66,6 +80,7 @@ export const useRestaurantStore = defineStore("restaurant", {
                 console.error("Error fetching featured restaurants:", error);
             }
         },
+        // Add a review to a restaurant
         async addReview(review, restaurantId) {
             try {
                 const reviewsRef = collection(db, "Restaurant", restaurantId, "Reviews");
@@ -74,6 +89,7 @@ export const useRestaurantStore = defineStore("restaurant", {
                 console.error("Error adding review:", error);
             }
         },
+        // Fetch reviews for a restaurant
         async fetchReviews(restaurantId) {
             this.reviews = [];
             try {
@@ -84,6 +100,7 @@ export const useRestaurantStore = defineStore("restaurant", {
                 console.error("Error fetching reviews:", error);
             }
         },
+        // Fetch food items for a restaurant
         async getRestaurantById(restaurantId) {
             try {
                 const restaurantRef = doc(db, "Restaurant", restaurantId);
