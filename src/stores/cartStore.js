@@ -36,6 +36,7 @@ export const useCartStore = defineStore("cart", {
         console.log("Item already in cart. Incrementing quantity.");
         existingItem.quantity += 1;
         this.updateCartItem(existingItem.id, existingItem);
+        alert("Item added to cart.");
       } else {
         try{
         // Add item to cart in database
@@ -44,6 +45,7 @@ export const useCartStore = defineStore("cart", {
           // the old Id and the new Id are the different so we need to update the id in the cart so that we can delete the item from the cart properly
           this.updateCartItem(docRef.id, { ...item, quantity: 1, addedBy: user.email, id: docRef.id });
           console.log("Item added to cart in database");
+          alert("Item added to cart.");
         }
         catch (error) {
           console.error("Error adding item to cart in database: ", error);
