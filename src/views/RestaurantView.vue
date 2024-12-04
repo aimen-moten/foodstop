@@ -19,6 +19,13 @@
         <button @click="addToCart(item)">Add to Cart</button>
       </li>
     </ul>
+    <ul class="reviews">
+      <li v-for="review in getRestaurant.Reviews" :key="review.id">
+        <h3>{{ review.name }}</h3>
+        <p>{{ review.review }}</p>
+        <p>Rating: {{ review.rating }}</p>
+      </li>
+    </ul>
   </div>
 </template>
 
