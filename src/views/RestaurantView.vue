@@ -1,45 +1,49 @@
 <template>
-    <div>
-      <h2>{{ restaurant.name }}</h2>
-      <MenuItems :items="menuItems" @addToCart="addToCart" />
+  <div class="restaurant-container">
+    <div class="restaurant-information">
+      <h2>{{ getRestaurant.name }}</h2>
+      <img :src="getImg" alt="Restaurant Image" />
+      <p>{{ getRestaurant.Description }}</p>
+      <p>Rating: {{ getRestaurant.Rating }}</p>
+      <p>Type: </p>
+      <ul>
+        <li v-for="category in getRestaurant.Type" :key="category">{{ category }}</li>
+      </ul>
     </div>
-  </template>
-  
-  <script>
-  import { onMounted, ref } from "vue";
-  import { useCartStore } from "@/stores/cartStore";
-  import MenuItems from "../components/MenuItems.vue";
-  import { db } from "@/firebase/init";
-  import { doc, getDoc } from "firebase/firestore";
-  
-  export default {
-    name: "RestaurantView",
-    components: { MenuItems },
-    setup() {
-      const menuItems = ref([]);
-      const restaurant = ref({});
+    <h2>Menu</h2>
+    <ul class="menu-items">
+      <li v-for="item in foodItems" :key="item.id">
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.description }}</p>
+        <p>Price: ${{ item.price }}</p>
+        <button @click="addToCart(item)">Add to Cart</button>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import { useRestaurantStore } from "@/stores/RestaurantStore";
+import { useCartStore } from "@/stores/cartStore";
+import { useRoute } from "vue-router";
+import { mapState, mapActions } from "pinia";
+
+export default {
+  name: "RestaurantView",
+  methods: {
+    ...mapActions(useRestaurantStore, ['fetchRestaurantData']),
+    addToCart(item) {
       const store = useCartStore();
-  
-      const fetchRestaurantData = async (id) => {
-        const docRef = doc(db, "restaurants", id);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          restaurant.value = docSnap.data();
-          menuItems.value = docSnap.data().menu;
-        }
-      };
-  
-      const addToCart = (item) => {
-        store.addToCart(item);
-      };
-  
-      onMounted(() => {
-        const id = "sample-restaurant-id"; // Replace with dynamic route param
-        fetchRestaurantData(id);
-      });
-  
-      return { menuItems, restaurant, addToCart };
+      store.addToCart(item);
     },
-  };
-  </script>
-  
+  },
+  computed: {
+    ...mapState(useRestaurantStore, ['getRestaurant', 'foodItems', 'getImg']),
+  },
+  created() {
+    const route = useRoute();
+    const restaurantId = route.params.id;
+    this.fetchRestaurantData(restaurantId);
+  }
+};
+</script>

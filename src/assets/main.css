@@ -1,4 +1,4 @@
-@import './base.css';
+
 
 #app {
   max-width: 1280px;
@@ -32,4 +32,63 @@ a,
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
+}
+
+/* Additional styles for RestaurantView.vue */
+.restaurant-container {
+  text-align: center;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.restaurant-container h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.restaurant-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+}
+
+.menu-items {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-items li {
+  background-color: #f9f9f9;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.menu-items li h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0;
+}
+
+.menu-items li p {
+  color: #666;
+  margin: 0.5rem 0;
+}
+
+.menu-items li button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.menu-items li button:hover {
+  background-color: #0056b3;
 }
