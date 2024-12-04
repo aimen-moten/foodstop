@@ -2,7 +2,7 @@
     <div v-if="!getCartStatus">
       <h2>Your Cart</h2>
       <OrderSummary :items="cart" :total="totalPrice" @removeItem="removeFromCart" />
-      <button>Checkout</button>
+      <button @click="checkout">Checkout</button>
     </div>
     <div v-else>
       <p>Your Cart is empty</p>

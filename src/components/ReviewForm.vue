@@ -1,14 +1,22 @@
 <template>
     <div>
-        <h3>Leave a Review</h3>
-        <select v-model="selectedRestaurant">
+        <h3>Leave a Review!</h3>
+        <label for="restaurant">Select a Restaurant:</label>
+        <select v-model="selectedRestaurant" id="restaurant">
             <option v-for="restaurant in restaurants" :key="restaurant.id" :value="restaurant.id">
                 {{ restaurant.name }}
             </option>
         </select>
-        <input v-model="ReviewerName" placeholder="Your Name" />
-        <textarea v-model="reviewText" placeholder="Write your review here..."></textarea>
-        <input v-model="rating" type="number" placeholder="Rating (0-5)" min="0" max="5" />
+        <br />
+        <label for="reviewer">Your Name:</label>
+        <input v-model="ReviewerName" placeholder="Your Name" id="reviewer"/>
+        <br />
+        <label for="review">Review:</label>
+        <textarea v-model="reviewText" placeholder="Write your review here..." id="review"></textarea>
+        <br />
+        <label for="rating">Rating(0-5):</label>
+        <input v-model="rating" type="number" placeholder="Rating (0-5)" min="0" max="5" id="rating" />
+        <br />
         <button @click="submitReview">Submit Review</button>
     </div>
 </template>
@@ -56,3 +64,30 @@ export default {
     }
 };
 </script>
+<style scoped>
+div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+label, input, select, textarea, button {
+    margin: 10px 0;
+    width: 80%;
+}
+
+button {
+    width: auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+</style>

@@ -5,8 +5,8 @@
       <router-link to="/">Home</router-link>
       <router-link to="/allrestaurants">Restaurants</router-link>
       <router-link to="/cart">Cart</router-link>
-      <router-link to="/reviews">Review</router-link>
-      <router-link to="/sign" v-show="!user">Sign In</router-link>
+      <router-link to="/reviews">Add Your Review!</router-link>
+      <router-link to="/sign" v-show="!user" id="SignIn">Sign In</router-link>
       <button v-if="user" @click="signOut">Logout</button>
     </nav>
     <main>
